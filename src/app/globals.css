@@ -6,6 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --color-primary: 217, 119, 6;
+  --color-a11y: 217, 119, 6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +26,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+@layer components {
+  .input-xl {
+    @apply rounded-lg text-lg px-2.5 py-2
+  }
 }
