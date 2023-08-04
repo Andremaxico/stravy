@@ -29,7 +29,10 @@ body {
 }
 
 @layer components {
-  .input-xl {
-    @apply rounded-lg text-lg px-2.5 py-2
+  .input {
+    @apply outline-none rounded-md border hover:shadow-sm hover:shadow-primary focus:border-primary duration-100 cursor-pointer
+  }
+  .main {
+    @apply absolute top-0 min-h-screen bg-white
   }
 }

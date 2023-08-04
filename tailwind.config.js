@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-function withOpacity(variableName) {
+function withOpacity(variableName, opacityValue) {
   return ({ opacityValue }) => {
     if (opacityValue !== undefined) {
       return `rgba(var(${variableName}), ${opacityValue})`
@@ -17,7 +17,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'primary': '#d97706',
+      },
       dropShadow: {
+        skin: {
+          primary: withOpacity("--color-primary"),
+        },
         '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
         '4xl': [
             '0 35px 35px rgba(0, 0, 0, 0.25)',
