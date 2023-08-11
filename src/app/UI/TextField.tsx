@@ -1,5 +1,8 @@
-import React, { HTMLInputTypeAttribute } from 'react'
+'use client';
+
+import React, { HTMLInputTypeAttribute, useState } from 'react'
 import cn from 'classnames';
+import { FaEye } from 'react-icons/fa';
 import { inputConfig } from '@/configs/inputConfig';
 import FormControl from '@mui/base/FormControl';
 import Input from '@mui/base/Input';
@@ -27,12 +30,15 @@ export const TextField = ({
 	labelText, required = false, parentStyles,
 	renderButton
 }: Props) => {
+	const [currType, setCurrType] = useState<HTMLInputTypeAttribute>(type);
+
+
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 
 		onChange(value);
 	}
-
 
 	return (
 		<FormControl className={cn('flex flex-col', parentStyles ? parentStyles : '')}>
@@ -45,7 +51,7 @@ export const TextField = ({
 					onFocus={onFocus}
 					onBlur={onBlur}
 					value={value}
-					className={`input ${inputConfig[size]} ${className} ${error ? 'border-red-600' : ''}`}
+					className={`input w-full mr-1 ${inputConfig[size]} ${className} ${error ? 'border-red-600' : ''}`}
 					placeholder={plaсeholder}
 				/>
 				{renderButton && renderButton()}

@@ -1,5 +1,5 @@
 export const sendRecipe = async (data: Recipe) => {
-	const res = await fetch(`http://localhost:3000/api/recipes`, {
+	const res = await fetch(`${process.env.SITE_URL || 'http://localhost:3000'}/api/recipes`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

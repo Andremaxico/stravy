@@ -1,14 +1,14 @@
-
+'use client';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getAllUsers } from '@/lib/users/getAllUsers'
 import { getRGBColor, getAccessibleColor } from '@/utils';
 import Image from 'next/image'
 import { SearchRecipe } from './components/SearchRecipe';
 import { CoverImage } from './components/CoverImage';
+import { auth } from "@/firebase/config";
+import { useEffect } from "react";
 
 export default async function Home() {
-  const data = await getAllUsers();
-
-  console.log('users', data);
   return (
     <main className="
       main

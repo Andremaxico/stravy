@@ -31,3 +31,19 @@ export const getAccessibleColor = (hex: string) => {
  
 	return `--color-${type}: ${r}, ${g}, ${b};`
  }
+
+
+
+//////////////////////////////////////////////////////
+//convert firebase error message
+////////////////////////////////////////////////////////
+
+export const convertErrorMessage = (errorCode: string) => {
+	switch (errorCode) {
+		case 'auth/email-already-exists':
+			return 'Така електронна адреса вже зареєстрована '
+		
+		default:
+			return errorCode;
+	}
+}
