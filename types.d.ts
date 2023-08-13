@@ -23,7 +23,7 @@ type Recipe = {
 	reviews: Review[],
 }
 
-type User = {
+type AccountData = {
 	uid: string,
 	avatarUrl: string,
 	name: string,

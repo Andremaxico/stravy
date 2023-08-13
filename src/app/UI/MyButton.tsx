@@ -29,7 +29,7 @@ export const MyButton = ({
 		xl: 'rounded-lg border-0 px-4 py-2 text-xl'
 	}
 
-	const interactiveStyles = 'duration-200 drop-shadow-primary  hover:drop-shadow-md active:drop-shadow-none hover:drop-shadow-none'
+	const interactiveStyles = 'duration-200 hover:drop-shadow-md hover:drop-shadow-primary  active:drop-shadow-none'
 
 	const styles =
 		variant === 'plain' 

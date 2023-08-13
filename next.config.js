@@ -7,6 +7,11 @@ const nextConfig = {
 				hostname: 'cdn.shopify.com',
 				port: '',
 			},
+			{
+				protocol: 'https',
+				hostname: 'lh3.googleusercontent.com',
+				port: '',
+			},
 		]
 	}
 }

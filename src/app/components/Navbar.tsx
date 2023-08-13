@@ -5,38 +5,23 @@ import Link from 'next/link';
 import { FaSign, FaSignInAlt } from 'react-icons/fa';
 import { MyButton } from '../UI/MyButton';
 import { auth } from '@/firebase/config';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useEffect } from 'react';
+import { GoogleAuthProvider, User, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { HeaderProfileInfo } from './HeaderProfileInfo';
 
 type Props = {};
 
 export const Navbar = ({}: Props) => {
-	//auth
-	const provider = new GoogleAuthProvider();
+	const [currUser, setCurrUser] = useState<User | null>(null);
 
-	const signUp = () => {
-		console.log('sign in with popup');
-		signInWithPopup(auth, provider)
-		.then((result) => {
-			// This gives you a Google Access Token. You can use it to access the Google API.
-			const credential = GoogleAuthProvider.credentialFromResult(result);
-			const token = credential?.accessToken;
-			// The signed-in user info.
-			const user = result.user;
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
 			console.log('user', user);
-			// IdP data available using getAdditionalUserInfo(result)
-			// ...
-		}).catch((error) => {
-			// Handle Errors here.
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			// The email of the user's account used.
-			const email = error.customData.email;
-			// The AuthCredential type that was used.
-			const credential = GoogleAuthProvider.credentialFromError(error);
-			// ...
-		});
-	}
+		  setCurrUser(user);
+		} else {
+		  setCurrUser(null);
+		}
+	 });
 
 	return (
 		<header className='
@@ -65,9 +50,12 @@ export const Navbar = ({}: Props) => {
 			
 			{/* account or login */}
 			<div className="">
-				<Link href={'/login'}>
-					<FaSignInAlt className={'text-base text-primary'} />
-				</Link>
+				{currUser ?
+					<HeaderProfileInfo user={currUser} />
+				: 	<Link href={'/login'}>
+						<FaSignInAlt className={'text-base text-primary'} />
+					</Link>
+				}
 			</div>
 		</header>
 	)
