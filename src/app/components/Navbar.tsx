@@ -12,7 +12,7 @@ import { HeaderProfileInfo } from './HeaderProfileInfo';
 type Props = {};
 
 export const Navbar = ({}: Props) => {
-	const [currUser, setCurrUser] = useState<User | null>(null);
+	const [currUser, setCurrUser] = useState<User | null>(auth.currentUser);
 
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
@@ -21,8 +21,7 @@ export const Navbar = ({}: Props) => {
 		} else {
 		  setCurrUser(null);
 		}
-	 });
-
+	});
 	return (
 		<header className='
 			sticky inset-x-0 top-0
