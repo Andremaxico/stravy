@@ -5,6 +5,7 @@ import { Controller, Field, FieldValue, useForm } from 'react-hook-form';
 import { MyButton } from '../UI/MyButton';
 import { TextField } from '../UI/TextField';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Props = {}
 type FieldValues = {
@@ -13,10 +14,14 @@ type FieldValues = {
 }
 
 export const SearchRecipe = ({}: Props) => {
+	const router = useRouter();
+
 	const { register, handleSubmit, formState: { errors }, control } = useForm<FieldValues>();
 
 	const onSubmit = (data: FieldValues) => {
 		console.log('submitted');
+
+		router.push(`/searchResults/${data.searchTerm}`);
 	}
 
 	return (
@@ -37,7 +42,7 @@ export const SearchRecipe = ({}: Props) => {
 				)}
 			/>
 
-			<MyButton>
+			<MyButton type='submit'>
 				<FaSearch />
 			</MyButton>
 		</form>

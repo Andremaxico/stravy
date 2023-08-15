@@ -11,11 +11,11 @@ export const GET = async () => {
 
 	const snapshot = await getDocs(q);
 
-	const users: User[] = [];
+	const users: AccountData[] = [];
 
 	snapshot.forEach(snap => {
 		if(snap.exists()) {
-			users.push(snap.data() as User);
+			users.push(snap.data() as AccountData);
 		}
 	})
 

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaSign, FaSignInAlt } from 'react-icons/fa';
+import { FaPlus, FaSign, FaSignInAlt } from 'react-icons/fa';
 import { MyButton } from '../UI/MyButton';
 import { auth } from '@/firebase/config';
 import { GoogleAuthProvider, User, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
@@ -42,10 +42,11 @@ export const Navbar = ({}: Props) => {
 					height={40}
 				/>
 			</div>
-			{/* add recipe */}
-			{/* <MyButton variant='outlined'>
-				<Link href={'/add-recipe'}>Add Recipe</Link>
-			</MyButton> */}
+			{/* add recipe page link */}
+			<Link href={'/add-recipe'} className='flex items-center'>
+				<FaPlus className={'text-primary text-xl mr-1'} /> 
+				Додати рецепт
+			</Link>
 			
 			{/* account or login */}
 			<div className="">
