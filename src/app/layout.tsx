@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="ua">
       <body className={inter.className}>
         <Navbar />
-        <div className="pt-20 min-h-screen absolute top-0 bg-white">
+        <div className="pt-20 min-h-screen w-full absolute top-0 bg-white">
           {children}
         </div>
       </body>

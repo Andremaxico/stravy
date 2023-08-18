@@ -35,4 +35,7 @@ body {
   .main {
     @apply absolute top-0 min-h-screen bg-white
   }
+  .start-outer::before {
+    content: "\f006 \f006 \f006 \f006 \f006";
+  }
 }

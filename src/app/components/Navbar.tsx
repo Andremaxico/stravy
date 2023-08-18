@@ -35,12 +35,15 @@ export const Navbar = ({}: Props) => {
 			{/* logo*/}
 			<div className="">
 				{/* i'll change this to mine */}
-				<img
-					alt='logo(temporary)'
-					src={'https://cdn.shopify.com/s/files/1/0504/1229/0242/files/PEROGIE_HOUSE_logo_480x480.png?v=1619113286'}
-					width={40}
-					height={40}
-				/>
+				<Link href={'/'}>
+					<Image
+						alt='logo(temporary)'
+						src={'https://cdn.shopify.com/s/files/1/0504/1229/0242/files/PEROGIE_HOUSE_logo_480x480.png?v=1619113286'}
+						width={40}
+						height={40}
+						className='cursor-pointer'
+					/>
+				</Link>
 			</div>
 			{/* add recipe page link */}
 			<Link href={'/add-recipe'} className='flex items-center'>
