@@ -52,3 +52,8 @@ export const convertErrorMessage = (errorCode: string) => {
 //getStringDate(Date => str)
 ////////////////////////////////////////////////////////
 
+export const getStringDate = (date: Date) => {
+	const str = date.toLocaleDateString();
+
+	return str;
+}

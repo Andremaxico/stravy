@@ -1,3 +1,4 @@
+import { getRecipeById } from '@/lib/recipes/getRecipeById'
 import React from 'react'
 
 type Props = {
@@ -6,8 +7,10 @@ type Props = {
 	}
 }
 
-export default function page({ params: { recipeId } }: Props) {
+export default async function Recipe({ params: { recipeId } }: Props) {
+	const recipeData = await getRecipeById(recipeId);
+
 	return (
-		<div>page</div>
+		<div>dsdsdsdsdsdsdsdsssssdds</div>
 	)
 }
