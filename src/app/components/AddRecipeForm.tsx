@@ -13,7 +13,11 @@ import { sendRecipeImg } from '@/lib/recipes/sendRecipeImg'
 import Image from 'next/image'
 import { Preloader } from './Preloader'
 import { storage } from '@/firebase/config'
+import MarkdownEditor from '@uiw/react-markdown-editor';
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+import Editor from '../UI/Editor'
+import { headingsPlugin, linkPlugin, listsPlugin, markdownShortcutPlugin, quotePlugin } from '@mdxeditor/editor'
+import FormControl from '@mui/base/FormControl'
 
 export const runtime = 'edge';
 
@@ -30,6 +34,7 @@ type Props = {}
 type FieldValues = Recipe & {
 	currIngridientName: string,
 	imageFile: FileList,
+	content: any,
 }
 
 export const AddRecipeForm = ({}: Props) => {
@@ -190,6 +195,8 @@ export const AddRecipeForm = ({}: Props) => {
 		})()
 	}, [watch('imageFile')]);
 
+	console.log(watch('content'));
+
 	return (
 		<form 
 			className='max-w-xl md:max-w-xs w-full' 
@@ -286,6 +293,7 @@ export const AddRecipeForm = ({}: Props) => {
 					{errors.imageFile && <span className='text-red-600 text-sm'>{errors.imageFile.message}</span>}
 				</label>
 
+				{/* selected image */}
 				{currSelectedImgSrc && 
 					// image wrapper
 					<div className="aspect-video overflow-hidden">
@@ -298,6 +306,28 @@ export const AddRecipeForm = ({}: Props) => {
 					</div>
 				}
 			</div>
+
+			<Controller 
+				control={control}
+				name={'content'}
+				rules={{
+					required: `Це поле є обов'язковим`
+				}}
+				render={({field: { value, onChange }}) => (
+					<FormControl>					
+						<label htmlFor='mdedit' className={'text-sm'} >Напишіть про страву</label>	
+
+						<MarkdownEditor
+							id='mdedit'
+							value={value}
+							height="200px"
+							onChange={onChange}
+						/>
+
+						{errors.content && <span className='text-sm text-red-600'>{errors.content.message as string}</span>}
+					</FormControl>
+				)}
+			/>
 
 			{isImageUploading && <Preloader />}
 			<MyButton 

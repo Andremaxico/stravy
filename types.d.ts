@@ -33,3 +33,8 @@ type AccountData = {
 }
 
 type Color = 'primary' | 'a11y'
+
+type ReqRes = {
+	error: null | string,
+	ok: boolean,
+}
