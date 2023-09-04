@@ -14,12 +14,10 @@ import Image from 'next/image'
 import { Preloader } from './Preloader'
 import { storage } from '@/firebase/config'
 import MarkdownEditor from '@uiw/react-markdown-editor';
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable, uploadString } from 'firebase/storage'
 import Editor from '../UI/Editor'
 import { headingsPlugin, linkPlugin, listsPlugin, markdownShortcutPlugin, quotePlugin } from '@mdxeditor/editor'
 import FormControl from '@mui/base/FormControl'
-
-export const runtime = 'edge';
 
 const fileToBlob = async (file: File) => {
 	return new Blob([
@@ -92,74 +90,49 @@ export const AddRecipeForm = ({}: Props) => {
 	}  
 
 	const onSubmit = async (data: FieldValues) => {
-		console.log('submit');
+		console.log('submit', data);
 		const { currIngridientName, ...restData } = data;
 
 		const id = v4();
 
 		console.log('imageFile', data.imageFile[0]);
 
-		if(data.imageFile[0]) {
-			setIsImageUploading(true);
-			console.log('uload image');
-			const storageRef = ref(storage, `recipes/${id}.png`)
-			//await uploadBytes(storageRef, data.imageFile[0])
-			//const { error, ok } = await sendRecipeImg(data.imageFile[0], id);
+		// if(data.imageFile[0] && data.imageFile[0].size < 71680) {
+		// 	setIsImageUploading(true);
+		// 	console.log('uload image');
+		// 	const storageRef = ref(storage, `recipes/${data.imageFile[0].name}`);
+		// 	//await uploadBytes(storageRef, data.imageFile[0])
+		// 	//const { error, ok } = await sendRecipeImg(data.imageFile[0], id);
 
+		// 	console.log('storage ref', storageRef);
+		// 	const res = await uploadBytes(storageRef, data.imageFile[0]);
 
-			const uploadTask = uploadBytesResumable(storageRef, data.imageFile[0]);
+		// 	console.log('res', res);
 
-			// Register three observers:
-			// 1. 'state_changed' observer, called any time the state changes
-			// 2. Error observer, called on failure
-			// 3. Completion observer, called on successful completion
-			uploadTask.on('state_changed', 
-			(snapshot) => {
-				// Observe state change events such as progress, pause, and resume
-				// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-				const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				console.log('Upload is ' + progress + '% done');
-				switch (snapshot.state) {
-					case 'paused':
-					console.log('Upload is paused');
-					break;
-					case 'running':
-					console.log('Upload is running');
-					break;
-				}
-			}, 
-			(error) => {
-				// Handle unsuccessful uploads
-			}, 
-			() => {
-				// Handle successful uploads on complete
-				// For instance, get the download URL: https://firebasestorage.googleapis.com/...
-				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-					console.log('File available at', downloadURL);
-				});
+		// 	setIsImageUploading(false);
+		// } else {
+		// 	alert('file is too big');
+		// }
+
+		const finalData: Recipe = {
+			...restData,
+			meta: {
+				...restData.meta,
+				photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg',
+				id: id,
 			}
-			);
-			setIsImageUploading(false);
 		}
 
-		// const finalData: Recipe = {
-		// 	...restData,
-		// 	meta: {
-		// 		...restData.meta,
-		// 		id: id,
-		// 	}
-		// }
+		const {error, ok} = await sendRecipe(finalData);
 
-		// const {error, ok} = await sendRecipe(finalData);
+		console.log('error', error, 'ok', ok);
 
-		// console.log('error', error, 'ok', ok);
-
-		// if(ok) {
-		// 	console.log('sent successfully');
-		// 	router.push('/');
-		// } else {
-		// 	console.log('error', error);
-		// }
+		if(ok) {
+			console.log('sent successfully');
+			router.push('/');
+		} else {
+			console.log('error', error);
+		}
 	}
 
 
@@ -195,7 +168,7 @@ export const AddRecipeForm = ({}: Props) => {
 		})()
 	}, [watch('imageFile')]);
 
-	console.log(watch('content'));
+	//console.log(watch('content'));
 
 	return (
 		<form 
@@ -277,7 +250,7 @@ export const AddRecipeForm = ({}: Props) => {
 					className='cursor-pointer'
 				>
 					<span className='text-sm'>Завантажте фото Вашої страви</span>
-					<input type="file" id='imgUpload' { ...register('imageFile', { required: 'Завантажте картинку!' }) } className='opacity-0 invisible w-0 h-0 absolute -z-10' />
+					<input type="file" id='imgUpload' { ...register('imageFile') } className='opacity-0 invisible w-0 h-0 absolute -z-10' />
 					{/* body of the upload */}
 					<div 
 						className="
@@ -330,6 +303,7 @@ export const AddRecipeForm = ({}: Props) => {
 			/>
 
 			{isImageUploading && <Preloader />}
+
 			<MyButton 
 				//onClick={handleClick}
 				type='submit'

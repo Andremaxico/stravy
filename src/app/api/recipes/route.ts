@@ -23,6 +23,7 @@ export const GET = async (req: Request) => {
 	const { searchParams } = new URL(req.url);
 
 	const searchTerm = searchParams.get('searchTerm');
+	console.log('search term in api', searchTerm);
 
 	if(!searchTerm) {
 		return NextResponse.json({"message": 'Term not provided'}, {status: 400})
@@ -45,6 +46,8 @@ export const GET = async (req: Request) => {
 			recipes.push(snap.data() as Recipe);
 		}
  	});
+
+	console.log('recipes api', recipes);
 
 	return NextResponse.json({"data": JSON.stringify(recipes)})
 }

@@ -39,9 +39,8 @@ export const MyButton = ({
 		: '';
 	
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		console.log('handle click in my button');
-
 		if(type === 'button') {
+			console.log('prevent event');
 			e.preventDefault();
 		}
 
