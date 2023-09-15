@@ -23,9 +23,9 @@ export default function RootLayout({
     <html lang="ua">
       <body className={inter.className}>
         <Navbar />
-        <div className="pt-20 min-h-screen w-full absolute top-0 bg-white">
+        <main className="prose prose-xl prose-slate dark:prose-invert pt-20 min-h-screen w-full absolute top-0 bg-white">
           {children}
-        </div>
+        </main>
       </body>
     </html>
   )

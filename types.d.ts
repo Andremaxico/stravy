@@ -21,6 +21,7 @@ type Review = {
 type Recipe = {
 	meta: RecipeMeta,
 	text: string,
+	content: string,
 	reviews: Review[],
 }
 

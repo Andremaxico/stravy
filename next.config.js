@@ -12,8 +12,13 @@ const nextConfig = {
 				hostname: 'lh3.googleusercontent.com',
 				port: '',
 			},
+			//temp
+			{
+				protocol: 'https',
+				hostname: 'upload.wikimedia.org',
+				port: '',
+			},
 		]
 	}
 }
-
 module.exports = nextConfig
