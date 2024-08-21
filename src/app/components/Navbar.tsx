@@ -4,10 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaPlus, FaSign, FaSignInAlt } from 'react-icons/fa';
 import { MyButton } from '../UI/MyButton';
-import { auth } from '@/firebase/config';
 import { GoogleAuthProvider, User, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { HeaderProfileInfo } from './HeaderProfileInfo';
+//import { HeaderProfileInfo } from './HeaderProfileInfo';
 
 type Props = {};
 
@@ -54,7 +53,8 @@ export const Navbar = ({}: Props) => {
 			{/* account or login */}
 			<div className="">
 				{currUser ?
-					<HeaderProfileInfo user={currUser} />
+					//<HeaderProfileInfo user={currUser} />
+					<p>User</p>
 				: 	<Link href={'/login'}>
 						<FaSignInAlt className={'text-base text-primary'} />
 					</Link>
